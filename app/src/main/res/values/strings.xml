@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">NewsFeed</string>
+    <string name="news_listing">News Articles</string>
+    <string name="main_heading">Main heading</string>
+    <string name="old_first">Old First</string>
+    <string name="latest_first">Latest First</string>
+    <string name="discription">Millennials’ interest in self-care has helped to fuel an entirely new market for mobile apps focused on health and wellness. Last year alone, the top 10 meditation apps pulled</string>
 </resources>
