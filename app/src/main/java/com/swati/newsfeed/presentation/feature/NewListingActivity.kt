@@ -4,10 +4,16 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
+import com.swati.newsfeed.R
 import com.swati.newsfeed.databinding.ActivityNewsListingBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,10 +32,51 @@ class NewListingActivity : AppCompatActivity(), ArticleClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
+        initToolBar()
         binding.newsListingLayout.rvNewsList.adapter = newsListAdaptor
         viewmodel.loadArticles()
         setObserver()
+    }
+
+    private fun initToolBar() {
+        val toolBar = binding.toolbar.apply {
+            // set the title and its color
+            this.title = "News Articles"
+            this.setTitleTextColor(
+                ContextCompat.getColor(
+                    this@NewListingActivity,
+                    R.color.white,
+                ),
+            )
+        }
+        // setting color of overflow icon
+        if (toolBar.overflowIcon != null) {
+            val overflow = ResourcesCompat.getDrawable(resources, R.drawable.ic_filter, null)
+            toolBar.overflowIcon = overflow
+        }
+        setSupportActionBar(toolBar)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.article_filter_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.old_first -> {
+                viewmodel.sortListAsPerMenu(0)
+                true
+            }
+
+            R.id.latest_first -> {
+                viewmodel.sortListAsPerMenu(1)
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun setObserver() {
