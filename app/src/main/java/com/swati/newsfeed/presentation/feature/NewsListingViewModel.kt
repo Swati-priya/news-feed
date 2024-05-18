@@ -18,6 +18,7 @@ class NewsListingViewModel @Inject constructor() : ViewModel() {
     val articleApiResponseLD: LiveData<ArticleSealedClass> = _articleApiResponseLD
     fun loadArticles() {
         viewModelScope.launch {
+            _articleApiResponseLD.postValue(ArticleSealedClass.Loading)
             ArticleRepository().loadArticles().collectLatest {
                 when (it.status) {
                     Resource.Status.SUCCESS -> {
@@ -40,6 +41,7 @@ class NewsListingViewModel @Inject constructor() : ViewModel() {
 }
 
 sealed class ArticleSealedClass {
+    object Loading : ArticleSealedClass()
     data class ApiError(var errorMsg: String) : ArticleSealedClass()
     data class Success(var articleList: MutableList<Article>) : ArticleSealedClass()
 }

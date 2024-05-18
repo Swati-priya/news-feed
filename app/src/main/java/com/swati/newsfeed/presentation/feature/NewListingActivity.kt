@@ -1,8 +1,10 @@
 package com.swati.newsfeed.presentation.feature
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.swati.newsfeed.databinding.ActivityNewsListingBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,14 +31,36 @@ class NewListingActivity : AppCompatActivity() {
 
     private fun setObserver() {
         viewmodel.articleApiResponseLD.observe(this) {
+            hideShimmer()
             when (it) {
+                ArticleSealedClass.Loading -> {
+                    showShimmer()
+                }
+
                 is ArticleSealedClass.ApiError -> {
+                    Toast.makeText(this, it.errorMsg, Toast.LENGTH_SHORT).show()
                 }
 
                 is ArticleSealedClass.Success -> {
                     newsListAdaptor.setNewsListData(it.articleList)
                 }
             }
+        }
+    }
+
+    private fun showShimmer() {
+        binding.newsListingLayout.apply {
+            rvNewsList.isVisible = false
+            shimmerArticles.startShimmer()
+            shimmerArticles.isVisible = true
+        }
+    }
+
+    private fun hideShimmer() {
+        binding.newsListingLayout.apply {
+            rvNewsList.isVisible = true
+            shimmerArticles.stopShimmer()
+            shimmerArticles.isVisible = false
         }
     }
 }

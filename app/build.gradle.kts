@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.gson)
     implementation(libs.okhttp)
+    implementation(libs.shimmer)
     implementation(libs.liveDataLifeCycle)
     implementation(libs.viewModelLifeCycle)
     implementation(libs.hilt.android)
