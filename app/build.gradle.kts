@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 android {
@@ -50,4 +52,13 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.glide)
+    implementation(libs.gson)
+    implementation(libs.okhttp)
+    implementation(libs.liveDataLifeCycle)
+    implementation(libs.viewModelLifeCycle)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+}
+kapt {
+    correctErrorTypes = true
 }

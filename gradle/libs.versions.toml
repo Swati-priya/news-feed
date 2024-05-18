@@ -1,13 +1,20 @@
 [versions]
 agp = "8.3.0-rc01"
 kotlin = "1.9.0"
+plugin-hilt = "2.51.1"
+plugin-kotlin = "1.9.22"
+gson = "2.8.9"
+okhttp = "5.0.0-alpha.4"
+lifecycle = "2.7.0"
+hiltAndroidVersion = "2.51.1"
+hiltAndroidCompilerVersion = "2.51.1"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
 appcompat = "1.6.1"
 material = "1.12.0"
-activity = "1.8.0"
+activity = "1.9.0"
 glide = "4.15.1"
 constraintlayout = "2.1.4"
 
@@ -18,11 +25,20 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-activity = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
 glide = { group = "com.github.bumptech.glide", name ="glide", version.ref = "glide" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+liveDataLifeCycle = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
+viewModelLifeCycle = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltAndroidVersion" }
+hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hiltAndroidCompilerVersion" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "plugin-hilt" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "plugin-kotlin" }
 
