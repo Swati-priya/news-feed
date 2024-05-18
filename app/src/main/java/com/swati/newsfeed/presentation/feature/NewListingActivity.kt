@@ -1,5 +1,8 @@
 package com.swati.newsfeed.presentation.feature
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -9,7 +12,7 @@ import com.swati.newsfeed.databinding.ActivityNewsListingBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NewListingActivity : AppCompatActivity() {
+class NewListingActivity : AppCompatActivity(), ArticleClickListener {
     private val binding: ActivityNewsListingBinding by lazy {
         ActivityNewsListingBinding.inflate(layoutInflater)
     }
@@ -17,7 +20,7 @@ class NewListingActivity : AppCompatActivity() {
     private val viewmodel by viewModels<NewsListingViewModel>()
 
     private val newsListAdaptor: NewsListAdaptor by lazy {
-        NewsListAdaptor()
+        NewsListAdaptor(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,6 +64,22 @@ class NewListingActivity : AppCompatActivity() {
             rvNewsList.isVisible = true
             shimmerArticles.stopShimmer()
             shimmerArticles.isVisible = false
+        }
+    }
+
+    override fun headerClickListener(url: String?) {
+        try {
+            url?.let {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+            } ?: run {
+                Toast.makeText(this, "Url is null", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(
+                this,
+                "Please install a web-browser",
+                Toast.LENGTH_LONG,
+            ).show()
         }
     }
 }

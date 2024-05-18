@@ -8,7 +8,7 @@ import com.swati.newsfeed.R
 import com.swati.newsfeed.databinding.NewsListItemBinding
 import com.swati.newsfeed.domain.model.Article
 
-class NewsListItemViewHolder(val binding: NewsListItemBinding) :
+class NewsListItemViewHolder(val binding: NewsListItemBinding, val listener: ArticleClickListener) :
     RecyclerView.ViewHolder(binding.root) {
     fun setData(data: Article) {
         binding.apply {
@@ -22,7 +22,7 @@ class NewsListItemViewHolder(val binding: NewsListItemBinding) :
             tvAuthorName.text = data.author
             tvPublishedAt.text = data.publishedAt
             tvNewsHeadline.setOnClickListener {
-                Toast.makeText(itemView.context, "Headline is clicked", Toast.LENGTH_SHORT).show()
+                listener.headerClickListener(data.url)
             }
         }
     }

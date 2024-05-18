@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.swati.newsfeed.databinding.NewsListItemBinding
 import com.swati.newsfeed.domain.model.Article
 
-class NewsListAdaptor() : RecyclerView.Adapter<NewsListItemViewHolder>() {
+class NewsListAdaptor(private val listener: ArticleClickListener) :
+    RecyclerView.Adapter<NewsListItemViewHolder>() {
     private var articleList: MutableList<Article> = mutableListOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsListItemViewHolder {
         return NewsListItemViewHolder(
@@ -15,6 +16,7 @@ class NewsListAdaptor() : RecyclerView.Adapter<NewsListItemViewHolder>() {
                 parent,
                 false,
             ),
+            listener = listener,
         )
     }
 
