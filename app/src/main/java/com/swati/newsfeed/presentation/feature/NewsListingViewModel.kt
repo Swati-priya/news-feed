@@ -21,7 +21,7 @@ class NewsListingViewModel @Inject constructor() : ViewModel() {
     fun loadArticles() {
         viewModelScope.launch {
             _articleApiResponseLD.postValue(ArticleSealedClass.Loading)
-            ArticleRepository().loadArticles().collectLatest {
+            ArticleRepository().loadArticlesUsingSystemService().collectLatest {
                 when (it.status) {
                     Resource.Status.SUCCESS -> {
                         it.data?.articles?.let { list ->
